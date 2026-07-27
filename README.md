@@ -2,6 +2,10 @@
 
 A Python application that calculates Body Mass Index (BMI), classifies users into BMI categories, generates a formatted report, and displays a graphical comparison chart using Matplotlib.
 
+## Screenshot
+
+![BMI Dashboard](bmi_project_screenshot.png)
+
 ## Features
 
 - Calculate BMI using height and weight
