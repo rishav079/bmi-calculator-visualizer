@@ -33,8 +33,8 @@ A Python application that calculates Body Mass Index (BMI), classifies users int
 
 ## Requirements
 
-- Python 3.8+
-- Matplotlib (see requirements.txt)
+- Python 3.10+
+- matplotlib 3.8.0+ (see requirements.txt)
 
 ## Installation
 
