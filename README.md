@@ -87,6 +87,16 @@ bmi-calculator-visualizer/
     └── BMI3.png
 ```
 
+## Changelog
+
+### v1.1.0
+- Added input validation for realistic height (0.5–2.5 m) and weight (2–300 kg) ranges
+- Added validation to prevent empty name entries
+- Removed unused legend labels on chart reference lines (no visual change)
+
+### v1.0.0
+- Initial release
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -97,4 +107,4 @@ Rishav Kaushik
 
 ## Version
 
-1.0.0
+1.1.0
