@@ -1,40 +1,35 @@
 """
 ============================================================
-                 BMI CALCULATOR & VISUALIZER
+BMI CALCULATOR & VISUALIZER
 ============================================================
-
 A professional Python application that:
-• Collects BMI data for multiple people
-• Calculates and classifies BMI
-• Displays a formatted BMI report
-• Generates a color-coded comparison chart
+    • Collects BMI data for multiple people
+    • Calculates and classifies BMI
+    • Displays a formatted BMI report
+    • Generates a color-coded comparison chart
 
 Author  : Rishav Kaushik
-Version : 1.0.0
-
+Version : 1.1.0
 ============================================================
 """
 
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 
-
 # ============================================================
 # BMI CATEGORY COLORS
 # ============================================================
-
 BMI_COLORS = {
-    "Underweight": "#3498db",   # Blue
-    "Normal": "#2ecc71",        # Green
-    "Overweight": "#f39c12",    # Orange
-    "Obese": "#e74c3c"          # Red
+    "Underweight": "#3498db",  # Blue
+    "Normal": "#2ecc71",       # Green
+    "Overweight": "#f39c12",   # Orange
+    "Obese": "#e74c3c"         # Red
 }
 
 
 # ============================================================
 # BMI CALCULATION
 # ============================================================
-
 def calculate_bmi(weight: float, height: float) -> float:
     """
     Calculate Body Mass Index.
@@ -55,7 +50,6 @@ def calculate_bmi(weight: float, height: float) -> float:
 # ============================================================
 # BMI CATEGORY CLASSIFICATION
 # ============================================================
-
 def get_bmi_category(bmi: float) -> str:
     """
     Determine BMI category.
@@ -79,7 +73,6 @@ def get_bmi_category(bmi: float) -> str:
 # ============================================================
 # USER INPUT SECTION
 # ============================================================
-
 def collect_user_data() -> list:
     """
     Collect user information and calculate BMI.
@@ -87,11 +80,10 @@ def collect_user_data() -> list:
     Returns:
         list: List containing user records
     """
-
     users = []
 
     print("\n" + "=" * 60)
-    print("            BMI DATA COLLECTION")
+    print(" BMI DATA COLLECTION")
     print("=" * 60)
 
     while True:
@@ -99,36 +91,36 @@ def collect_user_data() -> list:
             total_people = int(
                 input("\nEnter number of people to Calculate BMI: ")
             )
-
             if total_people > 0:
                 break
-
             print("Please enter a value greater than zero.")
-
         except ValueError:
             print("Invalid input! Please enter a number.")
 
     for person in range(1, total_people + 1):
-
         print(f"\n---------- Person {person} ----------")
 
-        name = input("Name   : ").strip().title()
+        while True:
+            name = input("Name : ").strip().title()
+            if name:
+                break
+            print("Name cannot be empty.")
 
         while True:
             try:
                 weight = float(input("Weight (kg) : "))
-                if weight > 0:
+                if 2 <= weight <= 300:
                     break
-                print("Weight must be greater than 0.")
+                print("Enter a realistic weight between 2 and 300 kg.")
             except ValueError:
                 print("Enter a valid weight.")
 
         while True:
             try:
                 height = float(input("Height (m) : "))
-                if height > 0:
+                if 0.5 <= height <= 2.5:
                     break
-                print("Height must be greater than 0.")
+                print("Enter a realistic height between 0.5 and 2.5 m.")
             except ValueError:
                 print("Enter a valid height.")
 
@@ -151,23 +143,19 @@ def collect_user_data() -> list:
 # ============================================================
 # DISPLAY BMI REPORT
 # ============================================================
-
 def display_report(users: list) -> None:
     """
     Display formatted BMI report.
     """
-
     print("\n")
     print("=" * 70)
-    print("                         BMI REPORT")
+    print(" BMI REPORT")
     print("=" * 70)
-
     print(
         f"{'Name':<25}"
         f"{'BMI':<15}"
         f"{'Category'}"
     )
-
     print("-" * 70)
 
     for user in users:
@@ -183,12 +171,10 @@ def display_report(users: list) -> None:
 # ============================================================
 # BMI VISUALIZATION
 # ============================================================
-
 def show_bar_graph(users: list) -> None:
     """
     Display BMI comparison graph.
     """
-
     names = [user["name"] for user in users]
     bmis = [user["bmi"] for user in users]
     colors = [BMI_COLORS[user["category"]] for user in users]
@@ -205,42 +191,20 @@ def show_bar_graph(users: list) -> None:
 
     # Display BMI value above bars
     for bar in bars:
-
-        height = bar.get_height()
-
+        bar_height = bar.get_height()
         plt.text(
             bar.get_x() + bar.get_width() / 2,
-            height + 0.3,
-            f"{height}",
+            bar_height + 0.3,
+            f"{bar_height}",
             ha="center",
             fontsize=10,
             fontweight="bold"
         )
 
     # BMI Reference Lines
-    plt.axhline(
-        y=18.5,
-        linestyle="--",
-        linewidth=1.5,
-        alpha=0.7,
-        label="Underweight Limit"
-    )
-
-    plt.axhline(
-        y=25,
-        linestyle="--",
-        linewidth=1.5,
-        alpha=0.7,
-        label="Normal Limit"
-    )
-
-    plt.axhline(
-        y=30,
-        linestyle="--",
-        linewidth=1.5,
-        alpha=0.7,
-        label="Obesity Limit"
-    )
+    plt.axhline(y=18.5, linestyle="--", linewidth=1.5, alpha=0.7)
+    plt.axhline(y=25, linestyle="--", linewidth=1.5, alpha=0.7)
+    plt.axhline(y=30, linestyle="--", linewidth=1.5, alpha=0.7)
 
     # Category Legend
     legend_items = [
@@ -273,13 +237,11 @@ def show_bar_graph(users: list) -> None:
         fontsize=18,
         fontweight="bold"
     )
-
     plt.xlabel(
         "Participants",
         fontsize=12,
         fontweight="bold"
     )
-
     plt.ylabel(
         "BMI Score",
         fontsize=12,
@@ -299,18 +261,15 @@ def show_bar_graph(users: list) -> None:
 # ============================================================
 # MAIN FUNCTION
 # ============================================================
-
 def main() -> None:
     """
     Program entry point.
     """
-
     print("=" * 60)
-    print("       WELCOME TO BMI CALCULATOR & VISUALIZER")
+    print(" WELCOME TO BMI CALCULATOR & VISUALIZER")
     print("=" * 60)
 
     users = collect_user_data()
-
     display_report(users)
 
     print("\nGenerating visualization...")
@@ -322,6 +281,5 @@ def main() -> None:
 # ============================================================
 # RUN APPLICATION
 # ============================================================
-
 if __name__ == "__main__":
     main()
